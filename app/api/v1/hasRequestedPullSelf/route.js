@@ -1,4 +1,5 @@
 import {NextResponse} from "next/server";
+import {readDataMany, writeData} from "@/lib/db";
 
 export async function fetchPulls(owner, repo) {
     const since = process.env.STARTING;
@@ -19,19 +20,41 @@ export async function fetchPulls(owner, repo) {
 export async function GET(request) {
     try {
         const {searchParams} = new URL(request.url);
-        const user = searchParams.get('user') ?? "";
         const repo = searchParams.get('repo') ?? "";
-        const owner = searchParams.get('owner') ?? "";
+        const user = searchParams.get('user') ?? "";
+        const id = 7;
         if (user === "" || repo === "") return NextResponse.json({msg: "send some shit"});
-        let pulls = await fetchPulls(owner, repo);
+        const progress = await readDataMany({
+            'collection': 'progress',
+            query: {
+                username: user,
+                identifier: { $eq : id }
+            }
+        })
+        if (progress.length > 0) return NextResponse.json({status: 403, success: false, message: "Milestone already completed"}, {status: 403});
+
+
+        let pulls = await fetchPulls(user, repo);
         pulls = pulls.filter(pull => {
             let d1 = new Date(pull.created_at ?? "");
             let d2 = new Date(process.env.STARTING)
-            return d1 > d2;
-        } );
-        return NextResponse.json({status: 200, success: pulls.some(pull => pull.user.login === user)});
+            return d1 > d2 && pull.user.login === user;
+        });
+        const success = pulls.length > 0;
+        if (success) {
+            await writeData({
+                collection: 'progress',
+                data: [{
+                    identifier: id,
+                    username: user,
+                    completedTime: pulls[0].created_at
+                }]
+
+            })
+        }
+        return NextResponse.json({status: 200, success: success});
     } catch (err) {
-        console.error(err); // Log the error for debugging
+        console.error(err);
         return NextResponse.json({success: false, message: 'Error: Internal Error', ErrorMsg: err?.toString()});
     }
 }

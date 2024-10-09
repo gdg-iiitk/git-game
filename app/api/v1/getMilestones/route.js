@@ -12,6 +12,9 @@ export async function GET(request) {
         if (task === "") return NextResponse.json({msg: "send some shit"});
         let data = await readDataMany({
             "collection": 'milestones',
+            query: {
+                'task': parseInt(task),
+            }
         })
         const completedMilestones = await readDataMany({
             "collection": "progress",

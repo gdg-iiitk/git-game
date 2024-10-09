@@ -18,9 +18,9 @@ export default function Home() {
 
   return (
     <div className="h-screen background ">
-      <div className=" flex justify-between  items-center ">
-        <div className="logo w-[15%] h-[20%] my-2 mx-2">
-          <Image src={gdgLogo} alt="Unable to load the logo" />
+      <div className="  flex items-center justify-between ">
+        <div className="logo w-[14%] my-4 mx-4 ">
+          {loggedIn && <Image src={gdgLogo} alt="Unable to load the logo" />}
         </div>
         {loggedIn && (
           <div className="Logout mx-4">
@@ -36,8 +36,14 @@ export default function Home() {
 
       {!loggedIn && (
         <div className="mainBody flex item-center justify-evenly w-full h-[80%]">
-          <div className="sessioLogo w-[40%] flex items-center justify-center ">
-            <Image src={sessionLogo} alt="Unable to load the logo" />
+          <div className="w-1/2 flex items-center justify-center">
+            <div className="sessioLogo w-[80%] flex flex-col items-center justify-center  gap-6 h-full relative">
+              <div className="logoGdg w-[40%] absolute top-0">
+                <Image src={gdgLogo} alt="Unable to load the logo" />
+              </div>
+
+              <Image src={sessionLogo} alt="Unable to load the logo" />
+            </div>
           </div>
           <div className="rightBod w-1/2 flex items-center justify-center">
             <LoginCard setLoggedIn={setLoggedIn} />

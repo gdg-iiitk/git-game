@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import {readDataOne, writeData } from "@/lib/db";
 import { v4 as uuid } from 'uuid';
+import { sql } from "@vercel/postgres";
 
 
 export async function POST(request) {
@@ -32,7 +33,6 @@ export async function POST(request) {
         if (data != null) {
             return NextResponse.json({status: 200, success: true, identifier: data.identifier});
         }
-        const uid = uuid();
         const user = await writeData({
             'collection': 'users',
             data: [
@@ -40,11 +40,10 @@ export async function POST(request) {
                     'username': body.username,
                     'email': body.email,
                     'name': body.name,
-                    'identifier': uid
                 }
             ]
         })
-        return NextResponse.json({status: 200, success: true, identifier: uid, data: user});
+        return NextResponse.json({status: 200, success: true, data: user});
     } catch (err) {
         return NextResponse.json({ success: false, message: 'Error: Internal Error', 'ErrorMsg': err.toString() });
     }

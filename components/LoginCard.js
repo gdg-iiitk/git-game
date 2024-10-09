@@ -19,7 +19,7 @@ export default function LoginCard({ setLoggedIn }) {
       setErrorMessage("Please enter a valid IIIT Kottayam email");
       return;
     } else if (userName.includes(" ")) {
-      setErrorMessage("GitHub   Username should not contain spaces");
+      setErrorMessage("GitHub Username should not contain spaces");
       return;
     } else {
       setErrorMessage("Proceeding");
@@ -27,21 +27,23 @@ export default function LoginCard({ setLoggedIn }) {
 
       try {
         await axios
-          .get("/api/v1/doesUserExist?user=thisisanshrastogi")
+          .get(`/api/v1/doesUserExist?user=${userName}`)
           .then((res) => {
             console.log(res);
             // This is a wrong way to check if the user exists
             // This is just a dummy code
-            if (res.data.status === 200 && res.data.success === false) {
+            if (res.data.status === 200 && res.data.success === true) {
               localStorage.setItem("user", userName);
               localStorage.setItem("realName", realName);
               setLoggedIn(true);
 
               // Proceed to next step
+            } else if (res.data.status === 200 && res.data.success === false) {
+              setErrorMessage("User Doesn't Exist!");
             }
           });
       } catch (error) {
-        setErrorMessage("User not found");
+        setErrorMessage("Error Connecting to Backend");
       } finally {
         setLoading(false);
       }
