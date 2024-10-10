@@ -46,7 +46,7 @@ export async function GET(request) {
       );
     const data = await fetchPublicRepos(user);
 
-    const newRepos = data.filter((repo) => repo.name === `my-first-github-repo`);
+    const newRepos = data.filter((repo) => repo.name === `myFirstGithubRepo`);
     const success = newRepos.length === 1;
     if (success) {
       await writeData({
@@ -64,7 +64,9 @@ export async function GET(request) {
       {
         status: 200,
         success: success,
-        message: success ? "Ok" : "Failed to find the repo (check the repo name)",
+        message: success
+          ? "Ok"
+          : "Failed to find the repo (check the repo name)",
       },
       { status: 200 }
     );
@@ -80,4 +82,3 @@ export async function GET(request) {
     );
   }
 }
-
