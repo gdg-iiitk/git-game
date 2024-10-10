@@ -50,9 +50,7 @@ export default function TimeLine() {
   };
   useEffect(() => {
     async function fetchMileStones() {
-      const statusArray = checkPoints.map((checkPoint) => {
-        checkPoint.status;
-      });
+      const statusArray = checkPoints.map((checkPoint) => checkPoint.status);
       if (statusArray.every((status) => status === "Completed")) {
         setShowCongrats(true);
       }
