@@ -21,7 +21,7 @@
 
 - Create a new branch
 
-`git checkout -b {git-game_yourGitHubUsername} `
+`git checkout -b {git-task_yourGitHubUsername} `
 
 ---
 
@@ -45,7 +45,7 @@
 
 - Open the forked repo again, click on **Pull requests**.
 - Create a new _pull request_
-- {yourGithubUsername}/main <-- {yourGithubUsername}/{git_game_yourGitHubUsername}
+- {yourGithubUsername}/main <-- {yourGithubUsername}/{git-task_yourGitHubUsername}
 
 ---
 
