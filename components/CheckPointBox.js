@@ -262,7 +262,7 @@ export default function CheckPointBox({
                       const match = className ? className.split("-") : "language-bash";
                       console.log(children);
                       return match ? (
-                            <SyntaxHighlighter
+                            <SyntaxHighlighter className='rounded-md'
                                 {...rest}
                                 PreTag="div"
                                 language={match[1]}
