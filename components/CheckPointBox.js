@@ -3,11 +3,12 @@ import { RxTriangleLeft } from "react-icons/rx";
 import { IoIosGitNetwork } from "react-icons/io";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
+import {Prism as SyntaxHighlighter} from 'react-syntax-highlighter'
 import { FaCircleCheck } from "react-icons/fa6";
 import axios from "axios";
 import { MdError } from "react-icons/md";
 import Markdown from "react-markdown";
-
+import { materialDark as theme} from "react-syntax-highlighter/dist/esm/styles/prism";
 function CheckLoader() {
   return (
     <div className="dot-spinner">
@@ -222,7 +223,7 @@ export default function CheckPointBox({
           className={clsx("leftLine h-[2px] col-span-2  w-full flex ", {
             "bg-[#00c0b6]": state === "Completed",
             "bg-[#ff995e]": state === "Waiting",
-            "bg-white": state == "Incomplete",
+            "bg-white": state === "Incomplete",
           })}
         ></div>
         {/* <div className="middleCircle h-[20px]  bg-transparent w-[20px] rounded-full bg-[#00C0B6] shadowComplete "></div> */}
@@ -238,7 +239,7 @@ export default function CheckPointBox({
           className={clsx("middleLine w-[1.5px] h-[305px] col-start-6", {
             "bg-[#00c0b6]": state === "Completed",
             "bg-[#ff995e]": state === "Waiting",
-            "bg-white": state == "Incomplete",
+            "bg-white": state === "Incomplete",
           })}
         ></div>
         <div className="TheBox col-start-7 col-end-13 h-full p-4 w-full flex flex-col">
@@ -254,7 +255,29 @@ export default function CheckPointBox({
               </div>
               <div className="cardContent text-black px-6 bg-[#E7E7E7] h-[200px]  overflow-scroll overflow-x-hidden rounded-b-xl">
                 <div className="cardtext py-4">
-                  <Markdown>{content}</Markdown>
+                  <Markdown
+                    components={{
+                    code(props) {
+                      const {children, className, node, ...rest} = props
+                      const match = className ? className.split("-") : "language-bash";
+                      console.log(children);
+                      return match ? (
+                            <SyntaxHighlighter
+                                {...rest}
+                                PreTag="div"
+                                language={match[1]}
+                                style={theme}
+                                children={String(children).replace(/\n$/, '')}
+                            />
+                      ) : (
+                          <code {...rest} className={className}>
+                            {children}
+                          </code>
+                      )
+                    }
+                  }}>
+                    {content}
+                  </Markdown>
                 </div>
                 <div className="bottom flex gap-4 items-center">
                   {url && (

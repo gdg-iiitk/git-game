@@ -1,59 +1,9 @@
 import { NextResponse } from "next/server";
 import { readDataMany, writeData } from "@/lib/db";
 
-export async function fetchCommits(owner, repo) {
-  const token = process.env.GITHUB_TOKEN;
-  const url = `https://api.github.com/repos/${encodeURIComponent(
-    owner
-  )}/${repo}/commits?since=${since}`;
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-      Authorization: `token ${token}`,
-    },
-  });
-  if (!response.ok) {
-    throw new Error(
-      `GitHub API responded with status ${response.status}: ${response.statusText}`
-    );
-  }
-  return await response.json();
-}
 
-export async function fetchBranches(owner, repo) {
-  const since = process.env.STARTING;
-  const token = process.env.GITHUB_TOKEN;
-  const url = `https://api.github.com/repos/${encodeURIComponent(
-    owner
-  )}/${repo}/branches`;
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-      Authorization: `token ${token}`,
-    },
-  });
-  if (response.status === 404) return null;
-  return await response.json();
-}
 
-export async function fetchFiles(owner, repo, branch) {
-  const since = process.env.STARTING;
-  const token = process.env.GITHUB_TOKEN;
-  const url = `https://api.github.com/repos/${encodeURIComponent(
-    owner
-  )}/${repo}/contents/?ref=${branch}`;
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-      Authorization: `token ${token}`,
-    },
-  });
-  if (response.status === 404) return null;
-  return await response.json();
-}
+
 
 const fetchDetails = async (url) => {
   const since = process.env.STARTING;

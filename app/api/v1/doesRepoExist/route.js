@@ -46,7 +46,7 @@ export async function GET(request) {
       );
     const data = await fetchPublicRepos(user);
 
-    const newRepos = data.filter((repo) => repo.name === `git-game_${user}`);
+    const newRepos = data.filter((repo) => repo.name === `my-first-github-repo`);
     const success = newRepos.length === 1;
     if (success) {
       await writeData({

@@ -10,7 +10,6 @@ export async function getUserinfo(username) {
       Authorization: `token ${token}`,
     },
   });
-  console.log(response);
   return response.ok;
 }
 

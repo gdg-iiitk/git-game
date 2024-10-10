@@ -20,7 +20,7 @@ export async function fetchPulls(owner, repo) {
 export async function GET(request) {
     try {
         const {searchParams} = new URL(request.url);
-        const repo = searchParams.get('repo') ?? "";
+        const repo = process.env.GITHUB_REPO;
         const user = searchParams.get('user') ?? "";
         const id = 7;
         if (user === "" || repo === "") return NextResponse.json({msg: "send some shit"});
