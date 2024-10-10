@@ -63,7 +63,13 @@ export async function GET(request) {
         ],
       });
     }
-    return NextResponse.json({ status: 200, success: success });
+    return NextResponse.json({
+      status: 200,
+      success: success,
+      message: success
+        ? "Ok"
+        : "You haven't created a Pull request to your main branch",
+    });
   } catch (err) {
     console.error(err);
     return NextResponse.json({

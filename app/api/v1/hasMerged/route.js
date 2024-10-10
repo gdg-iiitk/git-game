@@ -27,7 +27,8 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const user = searchParams.get("user") ?? "";
-    const repo = searchParams.get("repo") ?? "";
+    // const repo = searchParams.get("repo") ?? "";
+    const repo = "git-game";
     const id = 8;
     if (user === "" || repo === "")
       return NextResponse.json({ msg: "send some shit" });
@@ -64,6 +65,7 @@ export async function GET(request) {
         ],
       });
     }
+
     return NextResponse.json(
       {
         status: 200,

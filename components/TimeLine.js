@@ -71,7 +71,9 @@ export default function TimeLine() {
           })
           .then((res) => {
             console.log(res.data.data);
-            let milestones = res.data.data.sort((a, b) => a.identifier - b.identifier);
+            let milestones = res.data.data.sort(
+              (a, b) => a.identifier - b.identifier
+            );
             setCheckPoints(milestones);
             setLoader(false);
           })
@@ -118,18 +120,10 @@ export default function TimeLine() {
             );
           })}
         <div className="w-full h-40 flex flex-col justify-center items-center my-4">
-          {showCongrats && (
+          {showCongrats && !loader && (
             <div className="text-2xl  my-4 mx-5  text-center font-bold">
               Congratulations! You have completed all the checkpoints
             </div>
-          )}
-          {!loader && (
-            <button
-              onClick={showLeaderBoard}
-              className="bg-transparent hover:bg-neutral-200 font-semibold hover:text-black border-[1.5px] border-neutral-200 text-white  my-4 px-4 py-2 rounded-lg disabled:opacity-50"
-            >
-              LeaderBoard
-            </button>
           )}
         </div>
       </div>

@@ -182,8 +182,8 @@ export default function CheckPointBox({
           .get(url, {
             params: {
               user: localStorage.getItem("user"),
-              owner: process.env.OWNER,
-              repo: process.env.REPO,
+              // owner: process.env.OWNER,
+              // repo: process.env.REPO,
             },
           })
           .then((res) => {

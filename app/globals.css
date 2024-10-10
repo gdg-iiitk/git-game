@@ -167,11 +167,11 @@ body {
 
 /* scrollbar config */
 ::-webkit-scrollbar {
-  background-color: #e7e7e7;
+  background-color: transparent;
   width: 6px;
 }
 ::-webkit-scrollbar-thumb {
-  background: black;
+  background: rgb(149, 147, 147);
   /* border-radius: 5px; */
 }
 ::-webkit-scrollbar-thumb:hover {
