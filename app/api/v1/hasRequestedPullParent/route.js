@@ -30,7 +30,7 @@ export async function GET(request) {
     const repo = process.env.PARENT_REPO;
     const user = searchParams.get("user") ?? "";
     const id = 9;
-    if (user === "" || repo === "")
+    if (user === "")
       return NextResponse.json({ repo: repo, msg: "send some shit" });
     const progress = await readDataMany({
       collection: "progress",
@@ -63,7 +63,7 @@ export async function GET(request) {
         ],
       });
     }
-    return NextResponse.json({ status: 200, success: success });
+    return NextResponse.json({ status: 200, success: success, message: success ? "Ok" : "Did not find a pull request" });
   } catch (err) {
     console.error(err);
     return NextResponse.json({

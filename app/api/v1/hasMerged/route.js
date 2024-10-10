@@ -27,9 +27,9 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const user = searchParams.get("user") ?? "";
-    const repo = searchParams.get("repo") ?? "";
+    const repo = process.env.PARENT_REPO;
     const id = 8;
-    if (user === "" || repo === "")
+    if (user === "")
       return NextResponse.json({ msg: "send some shit" });
 
     const progress = await readDataMany({

@@ -20,10 +20,10 @@ export async function fetchPulls(owner, repo) {
 export async function GET(request) {
     try {
         const {searchParams} = new URL(request.url);
-        const repo = process.env.GITHUB_REPO;
+        const repo = process.env.PARENT_REPO;
         const user = searchParams.get('user') ?? "";
         const id = 7;
-        if (user === "" || repo === "") return NextResponse.json({msg: "send some shit"});
+        if (user === "") return NextResponse.json({msg: "send some shit"});
         const progress = await readDataMany({
             'collection': 'progress',
             query: {
@@ -52,7 +52,7 @@ export async function GET(request) {
 
             })
         }
-        return NextResponse.json({status: 200, success: success});
+        return NextResponse.json({status: 200, success: success, message: success ? "Ok" : `You did not create a Pull request to main`});
     } catch (err) {
         console.error(err);
         return NextResponse.json({success: false, message: 'Error: Internal Error', ErrorMsg: err?.toString()});

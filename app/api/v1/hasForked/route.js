@@ -63,7 +63,7 @@ export async function GET(request) {
     return NextResponse.json({
       status: 200,
       success: success,
-      message: success ? "Ok" : "Not forked repo found on your profile",
+      message: success ? "Ok" : "You did not fork the given repo",
     });
   } catch (err) {
     console.error(err); // Log the error for debugging

@@ -267,8 +267,9 @@ export default function CheckPointBox({
                                 PreTag="div"
                                 language={match[1]}
                                 style={theme}
-                                children={String(children).replace(/\n$/, '')}
-                            />
+                            >
+                              {String(children).replace(/\n$/, '')}
+                            </SyntaxHighlighter>
                       ) : (
                           <code {...rest} className={className}>
                             {children}
