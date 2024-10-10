@@ -27,7 +27,7 @@ export default function LoginCard({ setLoggedIn }) {
 
       try {
         await axios
-          .get(`/api/v1/doesUserExist?user=${userName}`)
+          .post(`/api/v1/signup`, {name: realName, username: userName, email: email})
           .then((res) => {
             console.log(res);
             // This is a wrong way to check if the user exists
