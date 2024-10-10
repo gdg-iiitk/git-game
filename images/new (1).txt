@@ -1,0 +1,8 @@
+ladkfjlakdf
+- In your terminal, create a new file:
+
+```bash 
+echo 'Hello from <YourGitHubUsername> ' > <YourGitHubUsername>.txt```
+- This will create a file with your username and the text inside it.
+
+    ldjfkladfdjfl

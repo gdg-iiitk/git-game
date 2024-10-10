@@ -29,8 +29,7 @@ export async function GET(request) {
     const user = searchParams.get("user") ?? "";
     const repo = process.env.PARENT_REPO;
     const id = 8;
-    if (user === "")
-      return NextResponse.json({ msg: "send some shit" });
+    if (user === "") return NextResponse.json({ msg: "send some shit" });
 
     const progress = await readDataMany({
       collection: "progress",
@@ -64,6 +63,7 @@ export async function GET(request) {
         ],
       });
     }
+
     return NextResponse.json(
       {
         status: 200,

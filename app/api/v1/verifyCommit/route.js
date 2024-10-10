@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server";
 import { readDataMany, writeData } from "@/lib/db";
 
-
-
-
-
 const fetchDetails = async (url) => {
   const since = process.env.STARTING;
   const token = process.env.GITHUB_TOKEN;
@@ -30,7 +26,7 @@ export async function GET(request) {
     const repo = process.env.PARENT_REPO;
     // as repo name is fixed i.e. = git-game_<username> , we can construct it here using username
     // const repo = searchParams.get("repo") ?? "";
-    const branchName = `git-game_${user}`;
+    const branchName = `${repo}_${user}`;
     const since = process.env.STARTING;
 
     //changed the urls
@@ -54,8 +50,7 @@ export async function GET(request) {
     //   owner
     // )}/${repo}/branches`;
     const id = 6;
-    if (user === "")
-      return NextResponse.json({ msg: "send some shit" });
+    if (user === "") return NextResponse.json({ msg: "send some shit" });
     const progress = await readDataMany({
       collection: "progress",
       query: {
@@ -84,7 +79,7 @@ export async function GET(request) {
         branch: false,
         file: false,
         commit: false,
-        message: "Did not find a branch with specified name"
+        message: "Did not find a branch with specified name",
       });
 
     const files = await fetchDetails(fileUrl);
@@ -143,7 +138,7 @@ export async function GET(request) {
       branch: true,
       file: true,
       commit: true,
-      message: "Ok"
+      message: "Ok",
     });
   } catch (err) {
     console.error(err);

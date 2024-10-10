@@ -26,7 +26,7 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     // const owner = process.env.OWNER;
-    const owner = "gdg-iiitk";
+    const owner = process.env.OWNWER;
     const repo = process.env.PARENT_REPO;
     const user = searchParams.get("user") ?? "";
     const id = 9;
@@ -63,7 +63,13 @@ export async function GET(request) {
         ],
       });
     }
-    return NextResponse.json({ status: 200, success: success, message: success ? "Ok" : "Did not find a pull request" });
+    return NextResponse.json({
+      status: 200,
+      success: success,
+      message: success
+        ? "Ok"
+        : "You haven't created a Pull request to your main branch",
+    });
   } catch (err) {
     console.error(err);
     return NextResponse.json({
