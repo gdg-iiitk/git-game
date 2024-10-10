@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 
 export default function LoginCard({ setLoggedIn }) {
-  const [errorMessage, setErrorMessage] = useState("This is an error message");
+  const [errorMessage, setErrorMessage] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [realName, setRealName] = useState("");

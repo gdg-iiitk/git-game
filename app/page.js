@@ -18,7 +18,7 @@ export default function Home() {
 
   return (
     <div className="h-screen background ">
-      <div className="  flex items-center justify-between ">
+      <div className="  flex items-center justify-between min-h-16 ">
         <div className="logo w-[14%] my-4 mx-4 ">
           {loggedIn && <Image src={gdgLogo} alt="Unable to load the logo" />}
         </div>

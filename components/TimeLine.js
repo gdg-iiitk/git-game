@@ -44,9 +44,22 @@ export default function TimeLine() {
   const [checkPoints, setCheckPoints] = useState([]);
   const [trigger, setTrigger] = useState(false);
   const [loader, setLoader] = useState(false);
+  const [showCongrats, setShowCongrats] = useState(false);
+  const showLeaderBoard = () => {
+    console.log("leaderboard");
+  };
   useEffect(() => {
     async function fetchMileStones() {
+      const statusArray = checkPoints.map((checkPoint) => {
+        checkPoint.status;
+      });
+      if (statusArray.every((status) => status === "Completed")) {
+        setShowCongrats(true);
+      }
       console.log(checkPoints.length);
+
+      //checking if the checkPoints are already fetched and setting loader
+
       if (checkPoints.length === 0) setLoader(true);
       try {
         await axios
@@ -103,6 +116,21 @@ export default function TimeLine() {
               />
             );
           })}
+        <div className="w-full h-40 flex flex-col justify-center items-center my-4">
+          {showCongrats && (
+            <div className="text-2xl  my-4 mx-5  text-center font-bold">
+              Congratulations! You have completed all the checkpoints
+            </div>
+          )}
+          {!loader && (
+            <button
+              onClick={showLeaderBoard}
+              className="bg-transparent hover:bg-neutral-200 font-semibold hover:text-black border-[1.5px] border-neutral-200 text-white  my-4 px-4 py-2 rounded-lg disabled:opacity-50"
+            >
+              LeaderBoard
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
