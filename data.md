@@ -4,7 +4,7 @@
 ---
 
 - On https://github.com search for **gdg-iiitk/game** repository.
-- Create a new _fork_ of this repo as **git-game**.
+- Create a new _fork_ of this repo as **git-task**.
 
 ---
 
@@ -17,11 +17,11 @@
 
 - In your terminal, go to your repo folder:
 
-`cd git-game`
+`cd git-task`
 
 - Create a new branch
 
-`git checkout -b {git_game_yourGitHubUsername} `
+`git checkout -b {git-game_yourGitHubUsername} `
 
 ---
 
@@ -45,4 +45,14 @@
 
 - Open the forked repo again, click on **Pull requests**.
 - Create a new _pull request_
-- {yourGithubUsername}/main <-- {git_game_yourGitHubUsername}
+- {yourGithubUsername}/main <-- {yourGithubUsername}/{git_game_yourGitHubUsername}
+
+---
+
+- Click on Merge Pull Request button .
+- If there are no conflicts git will automatically merge both branches.
+
+---
+
+- Create a new _pull request_
+- gid-iiitk main <-- {yourGithubUsername}/git-task main

@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+// We are not using this route
+//
 export async function fetchCommits(owner, repo) {
   const since = process.env.STARTING;
   const token = process.env.GITHUB_TOKEN;
