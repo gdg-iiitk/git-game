@@ -71,7 +71,8 @@ export default function TimeLine() {
           })
           .then((res) => {
             console.log(res.data.data);
-            setCheckPoints(res.data.data);
+            let milestones = res.data.data.sort((a, b) => a.identifier - b.identifier);
+            setCheckPoints(milestones);
             setLoader(false);
           })
           .catch((err) => {
