@@ -24,11 +24,10 @@ export async function fetchPulls(owner, repo) {
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
-    const repo = "git-game";
+    const repo = process.env.PARENT_REPO;
     const user = searchParams.get("user") ?? "";
     const id = 7;
-    if (user === "" || repo === "")
-      return NextResponse.json({ msg: "send some shit" });
+    if (user === "") return NextResponse.json({ msg: "send some shit" });
     const progress = await readDataMany({
       collection: "progress",
       query: {

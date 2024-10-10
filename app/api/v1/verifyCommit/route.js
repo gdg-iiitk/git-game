@@ -1,59 +1,9 @@
 import { NextResponse } from "next/server";
 import { readDataMany, writeData } from "@/lib/db";
 
-export async function fetchCommits(owner, repo) {
-  const token = process.env.GITHUB_TOKEN;
-  const url = `https://api.github.com/repos/${encodeURIComponent(
-    owner
-  )}/${repo}/commits?since=${since}`;
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-      Authorization: `token ${token}`,
-    },
-  });
-  if (!response.ok) {
-    throw new Error(
-      `GitHub API responded with status ${response.status}: ${response.statusText}`
-    );
-  }
-  return await response.json();
-}
 
-export async function fetchBranches(owner, repo) {
-  const since = process.env.STARTING;
-  const token = process.env.GITHUB_TOKEN;
-  const url = `https://api.github.com/repos/${encodeURIComponent(
-    owner
-  )}/${repo}/branches`;
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-      Authorization: `token ${token}`,
-    },
-  });
-  if (response.status === 404) return null;
-  return await response.json();
-}
 
-export async function fetchFiles(owner, repo, branch) {
-  const since = process.env.STARTING;
-  const token = process.env.GITHUB_TOKEN;
-  const url = `https://api.github.com/repos/${encodeURIComponent(
-    owner
-  )}/${repo}/contents/?ref=${branch}`;
-  const response = await fetch(url, {
-    method: "GET",
-    headers: {
-      Accept: "application/vnd.github.v3+json",
-      Authorization: `token ${token}`,
-    },
-  });
-  if (response.status === 404) return null;
-  return await response.json();
-}
+
 
 const fetchDetails = async (url) => {
   const since = process.env.STARTING;
@@ -77,10 +27,9 @@ export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
     const user = searchParams.get("user") ?? "";
-    const repo = `git-game`;
+    const repo = process.env.PARENT_REPO;
     // as repo name is fixed i.e. = git-game_<username> , we can construct it here using username
     // const repo = searchParams.get("repo") ?? "";
-    const owner = searchParams.get("owner") ?? "";
     const branchName = `git-game_${user}`;
     const since = process.env.STARTING;
 
@@ -105,7 +54,7 @@ export async function GET(request) {
     //   owner
     // )}/${repo}/branches`;
     const id = 6;
-    if (user === "" || repo === "")
+    if (user === "")
       return NextResponse.json({ msg: "send some shit" });
     const progress = await readDataMany({
       collection: "progress",
@@ -135,6 +84,7 @@ export async function GET(request) {
         branch: false,
         file: false,
         commit: false,
+        message: "Did not find a branch with specified name"
       });
 
     const files = await fetchDetails(fileUrl);
@@ -147,6 +97,7 @@ export async function GET(request) {
         branch: true,
         file: false,
         commit: false,
+        message: "Did not find a file with specified name",
       });
 
     let commits = await fetchDetails(commitUrl);
@@ -162,6 +113,7 @@ export async function GET(request) {
         branch: true,
         file: true,
         commit: false,
+        message: "Did not find a commit made by you",
       });
 
     //Commented this out so i don't write to db while testing
@@ -191,6 +143,7 @@ export async function GET(request) {
       branch: true,
       file: true,
       commit: true,
+      message: "Ok"
     });
   } catch (err) {
     console.error(err);
