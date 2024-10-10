@@ -117,13 +117,6 @@ export default function TimeLine() {
               />
             );
           })}
-        <div className="w-full h-40 flex flex-col justify-center items-center my-4">
-          {showCongrats && !loader && (
-            <div className="text-2xl  my-4 mx-5  text-center font-bold">
-              Congratulations! You have completed all the checkpoints
-            </div>
-          )}
-        </div>
       </div>
     </div>
   );
