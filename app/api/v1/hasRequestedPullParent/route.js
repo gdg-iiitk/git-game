@@ -66,6 +66,7 @@ export async function GET(request) {
     return NextResponse.json({
       status: 200,
       success: success,
+      pulls: pulls,
       message: success
         ? "Ok"
         : "You haven't created a Pull request to your main branch",
