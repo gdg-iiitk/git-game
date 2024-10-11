@@ -59,6 +59,7 @@ export async function GET(request) {
             identifier: id,
             username: user,
             completedTime: pulls[0].created_at,
+            
           },
         ],
       });
