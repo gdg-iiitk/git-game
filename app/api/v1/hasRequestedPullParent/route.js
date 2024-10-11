@@ -4,10 +4,8 @@ import { readDataMany, writeData } from "@/lib/db";
 export async function fetchPulls(owner, repo) {
   const since = process.env.STARTING;
   const token = process.env.GITHUB_TOKEN;
-  //   const url = `https://api.github.com/repos/gdg-iiitk/git-game/pulls?state=all&sort=created&direction=desc`;
-  const url = `https://api.github.com/repos/${encodeURIComponent(
-    owner
-  )}/${repo}/pulls?state=all&sort=created&direction=desc`;
+  //   const url = `https://api.github.com/repos/gdg-iiitk/git-task/pulls?state=all&sort=created&direction=desc`;
+  const url = `https://api.github.com/repos/gdg-iiitk/git-task/pulls?per_page=100&state=all`;
   const response = await fetch(url, {
     method: "GET",
     headers: {
@@ -59,7 +57,7 @@ export async function GET(request) {
             identifier: id,
             username: user,
             completedTime: pulls[0].created_at,
-            
+
           },
         ],
       });
