@@ -13,7 +13,7 @@ const fetchDetails = async (url) => {
   });
   if (!response.ok) {
     throw new Error(
-      `GitHub API responded with status ${response.status}: ${response.statusText}`
+      `GitHub API responded with status ${response.status}: ${response.statusText}`,
     );
   }
   return await response.json();
@@ -31,20 +31,19 @@ export async function GET(request) {
 
     //changed the urls
     const fileUrl = `https://api.github.com/repos/${encodeURIComponent(
-      user
+      user,
     )}/${encodeURIComponent(repo)}/contents/?ref=${branchName}`;
     // const fileUrl = `https://api.github.com/repos/${encodeURIComponent(
     //   owner
     // )}/${repo}/contents/?ref=${branchName}`;
     const commitUrl = `https://api.github.com/repos/${encodeURIComponent(
-      user
-    )}/${repo}/commits?since=${since}`;
+      user,
+    )}/${repo}/commits?since=${since}&sha=${branchName}`;
     // const commitUrl = `https://api.github.com/repos/${encodeURIComponent(
     //   owner
     // )}/${repo}/commits?since=${since}`;
-
     const branchUrl = `https://api.github.com/repos/${encodeURIComponent(
-      user
+      user,
     )}/${encodeURIComponent(repo)}/branches`;
     // const branchUrl = `https://api.github.com/repos/${encodeURIComponent(
     //   owner
@@ -65,13 +64,11 @@ export async function GET(request) {
           success: false,
           message: "Milestone already completed",
         },
-        { status: 403 }
+        { status: 403 },
       );
 
     const branches = await fetchDetails(branchUrl);
-    console.log(branches);
     const hasBranch = branches.some((branch) => branch.name === branchName);
-    console.log(hasBranch);
     if (!hasBranch)
       return NextResponse.json({
         status: 200,

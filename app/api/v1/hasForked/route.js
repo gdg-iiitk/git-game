@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 
 export async function fetchPublicRepos(username) {
   const url = `https://api.github.com/users/${encodeURIComponent(
-    username
+    username,
   )}/repos?type=public`;
   const token = process.env.GITHUB_TOKEN;
   const response = await fetch(url, {
@@ -17,7 +17,7 @@ export async function fetchPublicRepos(username) {
 
   if (!response.ok) {
     throw new Error(
-      `GitHub API responded with status ${response.status}: ${response.statusText}`
+      `GitHub API responded with status ${response.status}: ${response.statusText}`,
     );
   }
 
@@ -43,10 +43,11 @@ export async function GET(request) {
     if (progress.length > 0)
       return NextResponse.json(
         { status: 403, success: false, message: "Milestone already completed" },
-        { status: 403 }
+        { status: 403 },
       );
     const data = await fetchPublicRepos(user);
     const forkedRepo = data.filter((repo) => repo.homepage === page);
+    console.log(data);
     if (forkedRepo.length === 1) {
       await writeData({
         collection: "progress",
